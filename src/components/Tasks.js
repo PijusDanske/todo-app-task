@@ -16,19 +16,19 @@ const Total = styled.div`
 export function Tasks({ tasks }) {
   const [allTasks, setTasks] = useState(tasks);
 
-  const activeTasks = allTasks.filter((task) => !task.done);
-  const completedTasks = allTasks.filter((task) => task.done);
+  const activeTasks = allTasks.filter((task) => !task.active);
+  const completedTasks = allTasks.filter((task) => task.active);
   const totalTasks = allTasks.length;
 
   const addTask = useCallback(() => {
-    setTasks((prevTasks) => [...prevTasks, { title: "new task", done: false }]);
+    setTasks((prevTasks) => [...prevTasks, { title: "new task", active: false }]);
   }, []);
 
   const markAsCompleted = useCallback((task) => {
     setTasks((prevTasks) => {
       const updatedTasks = [...prevTasks];
       const index = updatedTasks.indexOf(task);
-      updatedTasks[index] = { ...task, done: true };
+      updatedTasks[index] = { ...task, active: true };
       return updatedTasks;
     });
   }, []);
