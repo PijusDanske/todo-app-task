@@ -5,7 +5,7 @@ const Active = styled.div`
   font-weight: bold;
 `;
 
-const Done = styled.div`
+const Completed = styled.div`
   text-decoration: line-through;
 `;
 
@@ -42,7 +42,7 @@ export function Tasks({ tasks }) {
         </Active>
       ))}
       {completedTasks.map((task, index) => (
-        <Done key={index}>{task.title}</Done>
+        <Completed key={index}>{task.title}</Completed>
       ))}
       <Total>Total tasks: {totalTasks}</Total>
     </div>
