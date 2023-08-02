@@ -1,6 +1,5 @@
 import React from "react";
-import Tasks from "./Tasks";
-
+import { Tasks } from "./Tasks";
 
 export function Home() {
   const tasks = [
