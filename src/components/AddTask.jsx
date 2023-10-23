@@ -4,7 +4,7 @@ export const AddTask = ({ setTaskList }) => {
   const [inputValue, setInputValue] = useState('');
 
   const handleClickAddButton = () => {
-    if (inputValue !== '') {
+    if (inputValue.trim() !== '') {
       setTaskList((prev) => {
         const lastId = Math.max(...prev.map((el) => el.id));
 
@@ -19,7 +19,7 @@ export const AddTask = ({ setTaskList }) => {
   };
 
   return (
-    <>
+    <div>
       <input
         type='text'
         value={inputValue}
@@ -32,6 +32,6 @@ export const AddTask = ({ setTaskList }) => {
       >
         Add task
       </button>
-    </>
+    </div>
   );
 };
