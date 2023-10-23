@@ -7,6 +7,7 @@ export const AddTask = ({ taskList }) => {
 
   const handleClickAddButton = () => {
     if (inputValue.trim() !== '') {
+      // TODO: consider to use Firebase Ids
       const lastId = Math.max(...taskList.map((el) => el.id));
       mutate({
         id: lastId + 1,

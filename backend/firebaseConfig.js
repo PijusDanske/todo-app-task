@@ -3,6 +3,7 @@ const { getFirestore } = require('firebase-admin/firestore');
 
 
 try {
+  // TODO(AK): move to env.file
   const serviceAccount = require('./creds.json');
 
   initializeApp({

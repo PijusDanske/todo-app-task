@@ -3,6 +3,7 @@ const cors = require('cors');
 
 const { db } = require('./firebaseConfig');
 const { seedData } = require('./seed');
+const { COLLECTION_NAME } = require('./constants')
 
 const PORT = process.env.PORT || 6000;
 
@@ -16,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/api/tasks", async (req, res) => {
   try {
-    const taskRef = await db.collection('tasks').get();
+    const taskRef = await db.collection(COLLECTION_NAME).get();
     const tasks = taskRef.docs.map(el => el.data());
 
     return res.json(tasks)
@@ -30,7 +31,7 @@ app.post("/api/task", async (req, res) => {
 
   if (id !== undefined && title !== undefined && done !== undefined) {
     try {
-      const newTaskRef = db.collection("tasks").doc();
+      const newTaskRef = db.collection(COLLECTION_NAME).doc();
       await newTaskRef.set({
         id,
         title,
@@ -51,7 +52,7 @@ app.patch("/api/task/:id", async (req, res) => {
     const { id } = req.params;
     const { done } = req.body;
 
-    const taskRef = db.collection('tasks').where('id', '==', parseInt(id));
+    const taskRef = db.collection(COLLECTION_NAME).where('id', '==', parseInt(id));
     const querySnapshot = await taskRef.get();
 
     if (querySnapshot.empty) {
