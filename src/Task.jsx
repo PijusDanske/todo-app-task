@@ -1,23 +1,33 @@
+import { memo, useCallback } from 'react';
 import styled from 'styled-components';
 
-const Active = styled.div`
-  font-weight: bold;
+const TaskDiv = styled.div`
+  font-weight: ${(props) => (!props.$iscompleted ? 'bold' : 'normal')};
+  text-decoration: ${(props) => (props.$iscompleted ? 'line-through' : 'none')};
 `;
 
-const Done = styled.div`
-  text-decoration: line-through;
-`;
+export const Task = ({ task, setTaskList }) => {
+  const { done, title, id } = task;
 
-export const Task = ({ task, onClick }) => {
-  const { done, title } = task;
+  const onClick = useCallback((id) => {
+    setTaskList((prev) => {
+      return [
+        ...prev.map((el) => {
+          if (el.id === id) {
+            return { ...el, done: !el.done };
+          }
+
+          return el;
+        }),
+      ];
+    });
+  }, []);
 
   return (
-    <>
-      {done ? (
-        <Done onClick={() => onClick(title)}>{title}</Done>
-      ) : (
-        <Active onClick={() => onClick(title)}>{title}</Active>
-      )}
-    </>
+    <TaskDiv $iscompleted={done} onClick={() => onClick(id)}>
+      {title}
+    </TaskDiv>
   );
 };
+
+export const MemoedTask = memo(Task);

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { TaskList } from './TaskList';
-import { TotalCount } from './Total';
+import { MemoedTotalCount } from './Total';
 
 const someTasks = [
   { id: 1, title: 'Wash dishes', done: false },
@@ -14,7 +14,7 @@ export const App = () => {
   return (
     <>
       <TaskList taskList={taskList} setTaskList={setTaskList} />
-      <TotalCount totalCount={taskList.length} />
+      <MemoedTotalCount totalCount={taskList.length} />
     </>
   );
 };
