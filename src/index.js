@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 import "./styles.css";
 
@@ -61,5 +61,9 @@ function App() {
   return <Tasks tasks={someTasks} />;
 }
 
-const rootElement = document.getElementById("root");
-ReactDOM.render(<App />, rootElement);
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>
+);
