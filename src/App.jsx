@@ -1,20 +1,14 @@
-import { useState } from 'react';
+import { useGetTaskList } from './hooks/useGetTaskList';
 import { TaskList, AddTask, MemoedTotalCount } from './components';
 
-const someTasks = [
-  { id: 1, title: 'Wash dishes', done: false },
-  { id: 2, title: 'Read book', done: false },
-  { id: 3, title: 'Get some sleep', done: true },
-];
-
 export const App = () => {
-  const [taskList, setTaskList] = useState(someTasks);
+  const { data } = useGetTaskList();
 
   return (
     <>
-      <AddTask setTaskList={setTaskList} />
-      <TaskList taskList={taskList} setTaskList={setTaskList} />
-      <MemoedTotalCount totalCount={taskList.length} />
+      <AddTask />
+      <TaskList taskList={data} />
+      <MemoedTotalCount totalCount={data?.length} />
     </>
   );
 };

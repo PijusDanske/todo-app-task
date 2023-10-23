@@ -1,12 +1,10 @@
 import { MemoedTask } from './Task';
 
-export const TaskList = ({ taskList, setTaskList }) => {
+export const TaskList = ({ taskList }) => {
   return (
     <>
       {taskList &&
-        taskList.map((task) => (
-          <MemoedTask key={task.id} task={task} setTaskList={setTaskList} />
-        ))}
+        taskList.map((task) => <MemoedTask key={task.id} task={task} />)}
     </>
   );
 };
