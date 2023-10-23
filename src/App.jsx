@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { TaskList } from './TaskList';
-import { AddTask } from './AddTask';
-import { MemoedTotalCount } from './Total';
+import { TaskList, AddTask, MemoedTotalCount } from './components';
 
 const someTasks = [
   { id: 1, title: 'Wash dishes', done: false },

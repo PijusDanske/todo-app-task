@@ -9,7 +9,7 @@ const TaskDiv = styled.div`
 export const Task = ({ task, setTaskList }) => {
   const { done, title, id } = task;
 
-  const onClick = useCallback((id) => {
+  const onClick = useCallback(() => {
     setTaskList((prev) => {
       return [
         ...prev.map((el) => {
@@ -21,10 +21,10 @@ export const Task = ({ task, setTaskList }) => {
         }),
       ];
     });
-  }, []);
+  }, [setTaskList]);
 
   return (
-    <TaskDiv $iscompleted={done} onClick={() => onClick(id)}>
+    <TaskDiv $iscompleted={done} onClick={onClick}>
       {title}
     </TaskDiv>
   );
