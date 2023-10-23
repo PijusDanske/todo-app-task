@@ -6,7 +6,7 @@ export const App = () => {
 
   return (
     <>
-      <AddTask />
+      <AddTask taskList={data} />
       <TaskList taskList={data} />
       <MemoedTotalCount totalCount={data?.length} />
     </>

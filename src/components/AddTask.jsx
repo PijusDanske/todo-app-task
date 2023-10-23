@@ -1,19 +1,18 @@
 import { useState } from 'react';
+import { useCreateNewTask } from '../hooks/useCreateNewTask';
 
-export const AddTask = ({ setTaskList }) => {
+export const AddTask = ({ taskList }) => {
+  const { isPending, mutate } = useCreateNewTask();
   const [inputValue, setInputValue] = useState('');
 
   const handleClickAddButton = () => {
     if (inputValue.trim() !== '') {
-      setTaskList((prev) => {
-        const lastId = Math.max(...prev.map((el) => el.id));
-
-        return [
-          ...prev,
-          { id: lastId + 1, title: inputValue.trim(), done: false },
-        ];
+      const lastId = Math.max(...taskList.map((el) => el.id));
+      mutate({
+        id: lastId + 1,
+        title: inputValue,
+        done: false,
       });
-
       setInputValue('');
     }
   };
@@ -28,7 +27,7 @@ export const AddTask = ({ setTaskList }) => {
       />
       <button
         onClick={handleClickAddButton}
-        disabled={!inputValue.trim().length > 0}
+        disabled={!inputValue.trim().length > 0 || isPending}
       >
         Add task
       </button>

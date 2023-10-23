@@ -1,27 +1,22 @@
 import { memo, useCallback } from 'react';
 import styled from 'styled-components';
+import { useUpdateTask } from '../hooks/useUpdateTask';
 
 const TaskDiv = styled.div`
   font-weight: ${(props) => (!props.$iscompleted ? 'bold' : 'normal')};
   text-decoration: ${(props) => (props.$iscompleted ? 'line-through' : 'none')};
 `;
 
-export const Task = ({ task, setTaskList }) => {
+export const Task = ({ task }) => {
   const { done, title, id } = task;
 
-  const onClick = useCallback(() => {
-    setTaskList((prev) => {
-      return [
-        ...prev.map((el) => {
-          if (el.id === id) {
-            return { ...el, done: !el.done };
-          }
+  const { mutate, isPending } = useUpdateTask();
 
-          return el;
-        }),
-      ];
-    });
-  }, [setTaskList]);
+  const onClick = useCallback(() => {
+    if (!isPending) {
+      mutate({ id, done: !done });
+    }
+  }, [task, isPending]);
 
   return (
     <TaskDiv $iscompleted={done} onClick={onClick}>

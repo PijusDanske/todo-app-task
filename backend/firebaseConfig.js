@@ -9,8 +9,9 @@ try {
     credential: cert(serviceAccount)
   })
 } catch (e) {
-  console.log('Failed to initialize backend with provided credential file.')
-  console.log('Make sure that you provide correct credential file from Firebase.')
+  console.log('\x1b[31m%s\x1b[0m', 'Failed to initialize backend with provided credential file.\n')
+  console.log('\x1b[31m%s\x1b[0m', 'Make sure that you provide correct credential file from Firebase.\n')
+  console.log('\x1b[31m%s\x1b[0m', 'Go to project setting -> Service Account -> Generate new private key -> Download file -> Put this file in current folder as creds.json')
 
   process.exit();
 }

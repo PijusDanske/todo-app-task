@@ -19,9 +19,53 @@ app.get("/api/tasks", async (req, res) => {
     const taskRef = await db.collection('tasks').get();
     const tasks = taskRef.docs.map(el => el.data());
 
-    return res.json(tasks).status(200);
+    return res.json(tasks)
   } catch (e) {
-    res.send(e.message).status(500)
+    res.status(500).send(e.message)
+  }
+});
+
+app.post("/api/task", async (req, res) => {
+  const { id, title, done } = req.body;
+
+  if (id !== undefined && title !== undefined && done !== undefined) {
+    try {
+      const newTaskRef = db.collection("tasks").doc();
+      await newTaskRef.set({
+        id,
+        title,
+        done
+      })
+
+      return res.json({ id, title, done });
+    } catch (e) {
+      res.status(500).send(e.message)
+    }
+  } else {
+    res.status(400).json({ error: 'No data was provided' });
+  }
+});
+
+app.patch("/api/task/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { done } = req.body;
+
+    const taskRef = db.collection('tasks').where('id', '==', parseInt(id));
+    const querySnapshot = await taskRef.get();
+
+    if (querySnapshot.empty) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // Update the "done" field of the first matching document
+    const taskDoc = querySnapshot.docs[0];
+    await taskDoc.ref.update({ done });
+
+    res.status(200).json({ message: 'Task updated successfully' });
+  } catch (error) {
+    console.error('Error updating task:', error.message);
+    res.status(500).json({ error: 'An error occurred while updating the task' });
   }
 });
 

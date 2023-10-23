@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useQuery } from '@tanstack/react-query';
-
+import { QUERY_KEYS } from './queryKeys'
 
 export const fetchTasks = async () => {
   try {
@@ -13,7 +13,7 @@ export const fetchTasks = async () => {
 
 export const useGetTaskList = () => {
   const { data, isLoading, isError } = useQuery({
-    queryKey: ['tasklist'],
+    queryKey: [QUERY_KEYS.GET_TASK_LIST],
     queryFn: fetchTasks,
   })
 
